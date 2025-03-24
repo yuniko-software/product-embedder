@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: deployments/Dockerfile
+    container_name: product-embedder
+    volumes:
+      - ./data:/app/data
+      - ./prod.env:/app/prod.env
+    depends_on:
+      - qdrant
+    environment:
+      - ENV_FILE=prod.env
+
+  qdrant:
+    image: qdrant/qdrant
+    container_name: qdrant
+    ports:
+      - "6333:6333"
+
