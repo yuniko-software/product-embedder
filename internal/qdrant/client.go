@@ -2,6 +2,7 @@ package qdrant
 
 import (
 	"fmt"
+	"product-embedder/internal/config"
 	"product-embedder/internal/models"
 
 	"github.com/go-resty/resty/v2"
@@ -16,10 +17,12 @@ func CreateCollection() error {
 		},
 	}
 
+	host := config.QdrantHost()
+
 	resp, err := client.R().
 		SetHeader("Content-Type", "application/json").
 		SetBody(body).
-		Put("http://localhost:6333/collections/products")
+		Put(host + "/collections/products")
 
 	if err != nil {
 		return err
@@ -49,10 +52,12 @@ func InsertProduct(id string, embedding []float32, p models.Product) error {
 		},
 	}
 
+	host := config.QdrantHost()
+
 	resp, err := client.R().
 		SetHeader("Content-Type", "application/json").
 		SetBody(body).
-		Put("http://localhost:6333/collections/products/points")
+		Put(host + "/collections/products/points")
 
 	if err != nil {
 		return err
