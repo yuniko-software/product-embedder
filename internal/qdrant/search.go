@@ -7,12 +7,6 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-type SearchResult struct {
-	ID      interface{}    `json:"id"`
-	Payload map[string]any `json:"payload"`
-	Score   float64        `json:"score"`
-}
-
 func SearchProducts(query string, topK int, maxPrice *float64) ([]SearchResult, error) {
 	embedding, err := GetEmbedding(query)
 	if err != nil {

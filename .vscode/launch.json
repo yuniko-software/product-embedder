@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Product Embedder",
+        "type": "go",
+        "request": "launch",
+        "mode": "auto",
+        "program": "${workspaceFolder}/cmd/api",
+        "cwd": "${workspaceFolder}",                      // ✅ sets working dir
+        "envFile": "${workspaceFolder}/prod.env",
+        "env": {
+          "ENV_FILE": "${workspaceFolder}/prod.env"
+        }
+      }
+    ]
+  }
+  
+
+  

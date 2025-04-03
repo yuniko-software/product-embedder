@@ -1,17 +1,17 @@
 package config
 
 import (
-	"log"
+	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
 )
 
-func LoadEnv(path string) {
-	err := godotenv.Load(path)
-	if err != nil {
-		log.Fatalf("Error loading env file %s: %v", path, err)
+func LoadEnv(file string) error {
+	if err := godotenv.Load(file); err != nil {
+		return fmt.Errorf("error loading env file %s: %w", file, err)
 	}
+	return nil
 }
 
 func QdrantHost() string {

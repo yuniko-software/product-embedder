@@ -40,5 +40,26 @@ func SetupAPI() {
 		return c.JSON(results)
 	})
 
+	app.Get("/rag", func(c *fiber.Ctx) error {
+		query := c.Query("q")
+		if query == "" {
+			return c.Status(400).SendString("Missing query param `q`")
+		}
+
+		topK := 5
+		if top := c.Query("top"); top != "" {
+			if parsed, err := strconv.Atoi(top); err == nil && parsed > 0 {
+				topK = parsed
+			}
+		}
+
+		response, err := qdrant.RunRAG(query, topK)
+		if err != nil {
+			return c.Status(500).SendString(err.Error())
+		}
+
+		return c.JSON(response)
+	})
+
 	log.Fatal(app.Listen(":8080"))
 }

@@ -16,7 +16,12 @@ func main() {
 	if envFile == "" {
 		envFile = "dev.env"
 	}
-	config.LoadEnv(envFile)
+
+	fmt.Println("📂 Loading env file:", envFile)
+
+	if err := config.LoadEnv(envFile); err != nil {
+		log.Fatalf("❌ Failed to load env file %s: %v", envFile, err)
+	}
 
 	if err := qdrant.CreateCollection(); err != nil {
 		log.Fatalf("Failed to create Qdrant collection: %v", err)
