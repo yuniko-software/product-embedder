@@ -14,13 +14,13 @@ import (
 func main() {
 	envFile := os.Getenv("ENV_FILE")
 	if envFile == "" {
-		envFile = "dev.env"
+		envFile = "./env/dev.env"
 	}
 
-	fmt.Println("📂 Loading env file:", envFile)
+	fmt.Println("Loading env file:", envFile)
 
 	if err := config.LoadEnv(envFile); err != nil {
-		log.Fatalf("❌ Failed to load env file %s: %v", envFile, err)
+		log.Fatalf("Failed to load env file %s: %v", envFile, err)
 	}
 
 	if err := qdrant.CreateCollection(); err != nil {

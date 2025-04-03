@@ -6,13 +6,8 @@ services:
       context: .
       dockerfile: deployments/Dockerfile
     container_name: product-embedder
-    volumes:
-      - ./data:/app/data
-      - ./prod.env:/app/prod.env
     depends_on:
       - qdrant
-    environment:
-      - ENV_FILE=prod.env
 
   qdrant:
     image: qdrant/qdrant
